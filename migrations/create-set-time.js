@@ -1,36 +1,36 @@
-'use strict';
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('set_time', {
+    await queryInterface.createTable("set_time", {
       set_time_id: {
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       event_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       stage_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       band_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       start_time: {
         type: Sequelize.TIME,
-        allowNull: false
+        allowNull: false,
       },
       end_time: {
         type: Sequelize.TIME,
-        allowNull: false
-      }
+        allowNull: false,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('set_time');
-  }
+    await queryInterface.dropTable("set_time");
+  },
 };
