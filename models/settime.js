@@ -1,41 +1,44 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-	class Event extends Model {
+	class SetTime extends Model {
 		/**
 		 * Helper method for defining associations.
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
-		static associate({ Stage, StageEvent, MeetGreet, SetTime }) {
-			Event.belongsToMany(Stage, {
-				foreignKey: 'event_id',
-				as: 'stages',
-				through: StageEvent,
+		static associate({ Band, Event, Stage }) {
+			SetTime.belongsTo(Band, {
+				foreignKey: 'band_id',
+				as: 'band',
 			});
-			Event.hasMany(MeetGreet, {
+			SetTime.belongsTo(Event, {
 				foreignKey: 'event_id',
-				as: 'meet_greets',
+				as: 'event',
 			});
-			Event.hasMany(SetTime, {
-				foreignKey: 'event_id',
-				as: 'set_times',
-			});
+			SetTime.belongsTo(Stage, {
+				foreignKey: 'stage_id',
+				as: 'stage'
+			})
 		}
 	}
-	Event.init(
+	SetTime.init(
 		{
-			event_id: {
+			set_time_id: {
 				type: DataTypes.INTEGER,
 				primaryKey: true,
 				autoIncrement: true,
 			},
-			name: {
-				type: DataTypes.STRING,
+			event_id: {
+				type: DataTypes.INTEGER,
 				allowNull: false,
 			},
-			date: {
-				type: DataTypes.DATE,
+			stage_id: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+			},
+			band_id: {
+				type: DataTypes.INTEGER,
 				allowNull: false,
 			},
 			start_time: {
@@ -49,10 +52,10 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
-			modelName: 'Event',
-			tableName: 'event',
+			modelName: 'SetTime',
+			tableName: 'set_time',
 			timestamps: false,
 		}
 	);
-	return Event;
+	return SetTime;
 };
